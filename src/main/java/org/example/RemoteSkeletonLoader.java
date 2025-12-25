@@ -36,7 +36,7 @@ public class RemoteSkeletonLoader implements SkeletonLoader {
         String line;
         while ((line = reader.readLine()) != null){
             if (line.isBlank()) {
-                continue; // 👈 ignora líneas vacías
+                continue; 
             }
 
             skeletons.add(skeletonParser.parse(line));
