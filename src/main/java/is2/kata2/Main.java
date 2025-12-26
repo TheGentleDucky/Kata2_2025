@@ -1,4 +1,4 @@
-package org.example;
+package is2.kata2;
 
 import java.util.List;
 
@@ -7,10 +7,10 @@ public class Main {
         String url = "https://raw.githubusercontent.com/TheGentleDucky/SkeletonMemeDataset/refs/heads/main/Skelet.csv";
 
         SkeletonParser parser = new CsvSkeletonParser();
-        SkeletonLoader loader = new RemoteSkeletonLoader(url, parser);
+        SkeletonLoader loader= new RemoteSkeletonLoader(parser, url);
 
-        List<Skeleton> skeletonList = loader.loadSkeletons();
-        skeletonList.forEach(System.out::println);
+        List<Skeleton> skeletons = loader.loadSkeletons();
+        skeletons.forEach(System.out::println);
 
     }
 }

@@ -1,4 +1,4 @@
-package org.example;
+package is2.kata2;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,35 +10,30 @@ import java.util.List;
 public class RemoteSkeletonLoader implements SkeletonLoader {
 
     private final SkeletonParser skeletonParser;
-    private final String skeletonUrl;
+    private final String skeletonURL;
 
-    public RemoteSkeletonLoader(String skeletonUrl, SkeletonParser skeletonParser) {
-        this.skeletonUrl = skeletonUrl;
+    public RemoteSkeletonLoader(SkeletonParser skeletonParser, String skeletonURL) {
         this.skeletonParser = skeletonParser;
+        this.skeletonURL = skeletonURL;
     }
 
     @Override
-    public List<Skeleton> loadSkeletons() {
-        try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(new URL(skeletonUrl).openStream()))){
-
+    public List<Skeleton> loadSkeletons(){
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new URL(skeletonURL).openStream()))) {
             return graveyardShuffle(reader);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+        throw new RuntimeException(e);
         }
-
     }
 
     private List<Skeleton> graveyardShuffle(BufferedReader reader) throws IOException {
         List<Skeleton> skeletons = new ArrayList<>();
-
         reader.readLine();
         String line;
-        while ((line = reader.readLine()) != null){
+        while ((line = reader.readLine()) != null) {
             if (line.isBlank()) {
-                continue; // 👈 ignora líneas vacías
+                continue;
             }
-
             skeletons.add(skeletonParser.parse(line));
         }
         return skeletons;
